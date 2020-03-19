@@ -11,20 +11,15 @@ app.use(bodyParser.json())
 app.get("/cursos", (req, res) => {
     res.json(controler.lista())
 })
-
 app.post("/cursos", (req, res) => {
     res.send(controler.adiciona(req.body))
 })
-
 app.put("/cursos", (req, res) => {
     res.send(controler.atualiza(req.body))
 })
-
-
 app.delete("/cursos", (req, res) => {
     res.send(controler.deleta())
 })
-
 app.get("/cursos/:indice", (req, res) => {
     res.send(controler.listaIndice(req.params.indice))
 })
