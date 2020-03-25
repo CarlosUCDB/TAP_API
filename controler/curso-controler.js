@@ -1,22 +1,39 @@
-var array = []
+const mongoose = require('mongoose');
+const cursoschema = require('./models/schema')
+mongoose.connect('mongodb+srv://user:admin@cluster0-mi7h0.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
-module.exports = curso = {
-    lista() {
-        return (array)
+const Curso = mongoose.model('Curso', cursoschema);
+
+
+
+module.exports = controler = {
+    async lista() {
+        var arr = await Curso.find().then((response) => {
+            return response
+        });
+        return arr
     },
-    listaIndice(indice) {
-        return array[indice]
+    async listaIndice(id) {
+        const cursoAtualizado = await Curso.find({ _id: mongoose.Types.ObjectId(id) }).then((response) => {
+            return response
+        })
+        return cursoAtualizado
     },
-    adiciona(data) {
-        array = [data]
-        return "Cadastrado com sucesso"
+    async adiciona(data) {
+        const novoCurso = new Curso(data);
+        await novoCurso.save().then((response) => console.log(response));
+        return "Cadastrado com sucesso!"
     },
-    atualiza(data) {
-        array.push(data)
+    async atualiza(data, id) {
+        const cursoAtualizado = await Curso.findOneAndReplace({ _id: mongoose.Types.ObjectId(id) }, data).then((response) => {
+            console.log(response)
+        })
         return "Alterado com sucesso"
     },
-    deleta() {
-        array.pop()
+    async deleta(id) {
+        const deletaCurso = await Curso.findOneAndDelete({ _id: mongoose.Types.ObjectId(id) }).then((response) => {
+            console.log(response)
+        })
         return "Remoção de um curso por ID"
     }
 }
