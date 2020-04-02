@@ -1,4 +1,5 @@
 const controler = require('./controler/curso-controler')
+const usuarioControler = require("./controler/usuario-controler")
 var bodyParser = require('body-parser')
 
 var express = require('express'),
@@ -22,5 +23,11 @@ app.delete("/cursos/:id", async(req, res) => {
 })
 app.get("/cursos/:id", async(req, res) => {
     res.send(await controler.listaIndice(req.params.id))
+})
+app.get("/usuario", async(req, res) => {
+    res.send(await usuarioControler.lista())
+})
+app.post("/usuario", async(req, res) => {
+    res.send(await usuarioControler.adiciona(req.body))
 })
 console.log('servidor ouvindo na porta ' + port);
