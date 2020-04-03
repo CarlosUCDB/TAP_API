@@ -5,7 +5,7 @@ const Usuario = mongoose.model('Usuario', usuarioSchema);
 
 module.exports = usuarioControler = {
     async lista(email) {
-        var arr = await Usuario.find({ email: email.email }).then((response) => {
+        var arr = await Usuario.find({ email: email }).then((response) => {
             if (response.length != 0)
                 return { "mensagem": "Usuário Existente" }
             else
