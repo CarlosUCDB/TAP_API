@@ -37,4 +37,5 @@ app.get("/usuario/:email", async(req, res) => {
 app.post("/usuario", async(req, res) => {
     res.send(await usuarioControler.adiciona(req.body))
 })
+
 console.log('servidor ouvindo na porta ' + port);
