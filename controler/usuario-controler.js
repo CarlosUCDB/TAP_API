@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const usuarioSchema = require('./models/usuarioSchema')
+const jwt = require('jsonwebtoken');
 mongoose.connect('mongodb+srv://user:admin@cluster0-mi7h0.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 const Usuario = mongoose.model('Usuario', usuarioSchema);
 
@@ -17,5 +18,12 @@ module.exports = usuarioControler = {
         const novousuario = new Usuario(data);
         await novousuario.save().then((response) => console.log(response));
         return { status: 200 }
-    }
+    },
+    async geraToken(data) {
+        let email = data.email
+        var token = jwt.sign({ email }, 'secret', {
+            expiresIn: 300 // expires in 5min
+        })
+        return token
+    },
 }

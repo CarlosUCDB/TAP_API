@@ -38,4 +38,8 @@ app.post("/usuario", async(req, res) => {
     res.send(await usuarioControler.adiciona(req.body))
 })
 
+app.post("/gerartoken", async(req, res) => {
+    res.send(await usuarioControler.geraToken(req.body))
+})
+
 console.log('servidor ouvindo na porta ' + port);
