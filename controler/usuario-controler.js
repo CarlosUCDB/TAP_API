@@ -21,9 +21,16 @@ module.exports = usuarioControler = {
     },
     async geraToken(data) {
         let email = data.email
-        var token = jwt.sign({ email }, 'secret', {
-            expiresIn: 300 // expires in 5min
+        let usuarioExiste = await Usuario.find({ email: email }).then((response) => {
+            if (response.length != 0) {
+                let _id = response[0]._id
+                let token = jwt.sign({ _id }, 'secret', {
+                    expiresIn: 300
+                })
+                return { 'response': token, status: 200 }
+            } else
+                return { "response": "Usuario Não Encotrado", status: 403 }
         })
-        return token
+        return usuarioExiste
     },
 }
