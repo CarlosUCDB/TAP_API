@@ -39,7 +39,8 @@ app.post("/usuario", async(req, res) => {
 })
 
 app.post("/gerartoken", async(req, res) => {
-    res.send(await usuarioControler.geraToken(req.body))
+    let responseFromControler = await usuarioControler.geraToken(req.body)
+    res.status(responseFromControler.status).send(responseFromControler.response)
 })
 
 console.log('servidor ouvindo na porta ' + port);
