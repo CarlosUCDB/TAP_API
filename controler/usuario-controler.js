@@ -34,6 +34,13 @@ module.exports = usuarioControler = {
         return usuarioExiste
     },
     async validaToken(data) {
+        let tokenSemBearer = data.split(" ")[1]
+        try {
+            let tokenDecodificado = jwt.verify(tokenSemBearer, 'secret')
+            return { 'response': 'Token Validado', 'status': 200 }
+        } catch (error) {
+            return { 'response': 'Token Invalido', 'status': 403 }
+        }
 
     }
 }

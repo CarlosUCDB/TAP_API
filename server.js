@@ -43,9 +43,8 @@ app.post("/gerartoken", async(req, res) => {
     res.status(responseFromControler.status).send(responseFromControler.response)
 })
 app.get("/validarToken", async(req, res) => {
-    res.send(req.headers.authorization)
-        //let responseFromControler = await usuarioControler.validaToken(req.headers)
-        // res.status(responseFromControler.status).send(responseFromControler.response)
+    responseFromControler = await usuarioControler.validaToken(req.headers.authorization)
+    res.status(responseFromControler.status).send(responseFromControler.response)
 })
 
 console.log('servidor ouvindo na porta ' + port);
