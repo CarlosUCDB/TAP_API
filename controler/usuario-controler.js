@@ -33,4 +33,7 @@ module.exports = usuarioControler = {
         })
         return usuarioExiste
     },
+    async validaToken(data) {
+
+    }
 }
