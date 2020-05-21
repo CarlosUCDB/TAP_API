@@ -10,12 +10,16 @@ module.exports = controler = {
     async lista() {
         var arr = await Curso.find().then((response) => {
             return response
-        });
+        }).catch(erro => {
+            console.log(erro)
+        })
         return arr
     },
     async listaIndice(id) {
         const cursoAtualizado = await Curso.find({ _id: mongoose.Types.ObjectId(id) }).then((response) => {
             return response
+        }).catch(erro => {
+            console.log(erro)
         })
         return cursoAtualizado
     },
@@ -27,13 +31,25 @@ module.exports = controler = {
     async atualiza(data, id) {
         const cursoAtualizado = await Curso.findOneAndReplace({ _id: mongoose.Types.ObjectId(id) }, data).then((response) => {
             console.log(response)
+        }).catch(erro => {
+            console.log(erro)
         })
         return "Alterado com sucesso"
     },
     async deleta(id) {
         const deletaCurso = await Curso.findOneAndDelete({ _id: mongoose.Types.ObjectId(id) }).then((response) => {
             console.log(response)
+        }).catch(erro => {
+            console.log(erro)
         })
         return "Remoção de um curso por ID"
+    },
+    async buscaCurso(curso) {
+        var curso = await Curso.find({ titulo: curso }).then((response) => {
+            return response
+        }).catch(erro => {
+            console.log(erro)
+        })
+        return curso
     }
 }

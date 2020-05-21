@@ -47,9 +47,8 @@ app.get("/validarToken", async(req, res) => {
     res.status(responseFromControler.status).send(responseFromControler.response)
 })
 app.get("/buscarcurso/:titulo", async(req, res) => {
-    console.log(req.params.titulo)
-        // responseFromControler = await usuarioControler.validaToken(req.headers.authorization)
-        // res.status(responseFromControler.status).send(responseFromControler.response)
+    //responseFromControler = await usuarioControler.validaToken(req.headers.authorization)
+    res.send(await controler.buscaCurso(req.params.titulo))
 })
 
 console.log('servidor ouvindo na porta ' + port);
